@@ -25,16 +25,23 @@ Bauen mit
 
 Starten mit
 
-    spring-boot:run
+    mvn spring-boot:run
 
 
 ### Tests
-Unit und Integrationstest kann man einzeln mit
+Unittest kann man einzeln mit
 
     mvn test
 
-starten. Da hierbei Integrationstests mit einer PostgreSQL 
-laufen muss der docker-compose-stack für die Integrationstests vorher hochgefahren sein.
+starten. 
+
+
+Die Integrationstests starten über:
+
+    mvn verify 
+
+Da hierfpr eine PostgreSQL verwendet wird, 
+sollte der docker-compose-stack für die Integrationstests vorher hochgefahren sein.
 
 ### Hinweis zu Spring Profilen:
 * `test-data` - führt zusätzlich zu den "normalen" Flyway-Migrationen
@@ -54,7 +61,8 @@ Diese sind in der [application.yml](src/main/resources/application.yml) zu finde
 * `cors.origin_url`:  Erlaubte origins
 
 ## Frontend
-Man wechsle in den Ordner [api-connector-spa](api-connector-spa) und führe dort folgende Schritte aus:
+Man wechsle in den Ordner [api-connector-spa](api-connector-spa) 
+und führe dort folgende Schritte aus:
 
 Installieren der NPM Abhängigkeiten:
 
@@ -64,7 +72,8 @@ Starten eines Testservers zur Auslieferung der SPA mit:
 
     ng serve
 
-Dann kann unter [http://localhost:4200](http://localhost:4200) die Anwendung im Browser ausgeführt werden.
+Dann kann unter [http://localhost:4200](http://localhost:4200) 
+die Anwendung im Browser ausgeführt werden.
 
 
 ### UI Tests
@@ -95,12 +104,27 @@ Ebenso steht im Ordner [api-connector-spa](/api-connector-spa/Dockerfile)
 für das Frontend ein [Dockerfile](/api-connector-spa/Dockerfile) bereit. 
 So kann auch das Frontend containerisiert ausgeliefert werden. 
 
-Nach dem erstellen der Docker-Images müssen diese Images in eine passende Docker-Registry gepushed werden.
+Nach dem Erstellen der Docker-Images müssen diese Images in eine passende Docker-Registry gepushed werden.
 
 Liegen diese Images in einer Docker-Registry vor können diese z.b. in einer 
-Kubernetes Deploy-Ressource referenziert und damit schlussendlich in einen Kubernetes Cluster deployed werden.
+Kubernetes Deployment-Ressource referenziert und damit schlussendlich in einen Kubernetes Cluster deployed werden.
 
-Ein beispielhaftes Kubernetes Deployment findet sich im deployment Ordner.
+Ein beispielhaftes Kubernetes Deployment findet sich im [deployment](deployment) Ordner.
+
+Dort finden sich eine Reihe von Kubernetes Ressourcen:
+
+- [configMap.yaml](deployment/configMap.yaml): Hier kann zur CORS Konfiguration der Host des Backends angegebn werden
+- [dbSecret.yaml](deployment/dbSecret.yaml): Hier wird in einem Secret der Zugang zur DB definiert
+- [deploymentBackend.yaml](deployment/deploymentBackend.yaml), [deploymentFrontend.yaml](): Deployment des Backends und Frontends. Hier wird auch auf die configmap und das DB-Secret zurückgegriffen
+- [serviceBackend.yaml](deployment/serviceBackend.yaml), [serviceFrontend.yaml](deployment/serviceFrontend.yaml): Diese dienen dazudie deployten Pods für Frontend und Backend dem jeweiligen LoadBalancer(ingress) zur Erreichbarkeit von außerhalb des Clusters bereitzustellen
+- [ingressBackend.yaml](deployment/ingressBackend.yaml), [ingressFrontend.yaml](deployment/ingressFrontend.yaml): LoadBalancer zum Verknüpfen der Services mit einer externen aufrufbaren URL
+
+*Hinweis*: Die Bereitstellung mit TLS Zertifikaten ist in diesem Beispiel nicht mit aufgezeigt. Dies wäre für den produktiven Betrieb noch zu ergänzen. 
+Dazu kann z.b. ein ClusterIssuer zum Einsatz kommen.
+
+
+
+
 
 
 
