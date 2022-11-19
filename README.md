@@ -119,8 +119,24 @@ Dort finden sich eine Reihe von Kubernetes Ressourcen:
 - [serviceBackend.yaml](deployment/serviceBackend.yaml), [serviceFrontend.yaml](deployment/serviceFrontend.yaml): Diese dienen dazudie deployten Pods für Frontend und Backend dem jeweiligen LoadBalancer(ingress) zur Erreichbarkeit von außerhalb des Clusters bereitzustellen
 - [ingressBackend.yaml](deployment/ingressBackend.yaml), [ingressFrontend.yaml](deployment/ingressFrontend.yaml): LoadBalancer zum Verknüpfen der Services mit einer externen aufrufbaren URL
 
+Ist der Kubernetes Kontext richtig gesetzt kann man diese Ressourcen jeweils mit
+
+    kubectl apply -f <Dateiname>
+
+im Kubernetes Cluster applizieren.
+Diese Ressourcen können auch wenn das im konkreten Deployment-Szenario praktisch ist als helm-chart gebündelt deployed werden.
+
 *Hinweis*: Die Bereitstellung mit TLS Zertifikaten ist in diesem Beispiel nicht mit aufgezeigt. Dies wäre für den produktiven Betrieb noch zu ergänzen. 
 Dazu kann z.b. ein ClusterIssuer zum Einsatz kommen.
+
+## Skalierung
+*Vertikale* Skalierung ist durch Änderung der *replicas* im Kubernetes-Deployment leicht möglich. 
+
+Dabei ist zu beachten, dass die periodische Aktualisierung der DB durch den Abruf der User von der randomuser-API in einen
+weiteren Microservice ausgelagert werden sollte,
+
+*Horizontale* Skalierung ist beispielsweise durch Erhöhung der JVM-Ressourcen über die Umgebungsvaribale *JAVA_OPTS* gegeben.
+
 
 
 
