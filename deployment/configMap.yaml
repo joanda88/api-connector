@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-connector-spa
+  namespace: api-connector-spa
+  labels:
+    app: api-connector-spa
+data:
+  CORS_ORIGIN_URLS: <hier die URL unter des das Frontend im Web erreichbar ist eintragen>

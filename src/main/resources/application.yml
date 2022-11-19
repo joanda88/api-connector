@@ -1,0 +1,53 @@
+# Database default configuration
+db_host: localhost
+db_name: jeggers
+db_schema: api_connector
+db_username: postgres
+db_password: postgres
+db_sslmode: prefer
+flyway_migrations: classpath:db/migrations
+users_url: https://randomuser.me/api/?gender,name,login,email,location&results=
+
+cors:
+  origin_urls: "http://localhost:4200"
+
+spring:
+  profiles:
+    default: local
+  application:
+    name: api-connector
+  datasource:
+    url: "jdbc:postgresql://${db_host}:5432/${db_name}?currentSchema=${db_schema}&sslmode=${db_sslmode}"
+    username: ${db_username}
+    password: ${db_password}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximumPoolSize: 15
+  flyway:
+    schemas: ${db_schema}
+    table: ${db_schema}_schema_version
+    locations: ${flyway_migrations}
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test-data
+flyway_migrations: classpath:db/migrations,classpath:db/test-migrations
+
+---
+server:
+  error:
+    whitelabel:
+      enabled: false
+    path: "/error"
+  port: 12080
+  max-http-header-size: 48000
+  forward-headers-strategy: native

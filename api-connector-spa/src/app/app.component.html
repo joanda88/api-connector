@@ -1,0 +1,23 @@
+<button type="button" (click)="update()"> Update </button>
+
+<select [(ngModel)]="selectedCountry">
+  <option>Select Country</option>
+  <option *ngFor="let country of getCountries()">{{country}}</option>
+</select>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Gender</th>
+    <th>Email</th>
+    <th>Country</th>
+  </tr>
+  <tr *ngFor="let user of getUserList();">
+    <td>{{user.name}}</td>
+    <td>{{user.gender}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.country}}</td>
+  </tr>
+</table>
+
+

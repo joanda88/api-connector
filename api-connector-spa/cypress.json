@@ -1,0 +1,15 @@
+{
+  "projectId": "api-connector",
+  "fixturesFolder": "src/test/cypress/fixtures",
+  "integrationFolder": "src/test/cypress/integration",
+  "chromeWebSecurity": false,
+  "baseUrl": "http://localhost:4200",
+  "viewportWidth": 1920,
+  "viewportHeight": 1080,
+  "video": false,
+  "defaultCommandTimeout": 12000,
+  "retries": {
+  "openMode": 0,
+    "runMode": 2
+}
+}

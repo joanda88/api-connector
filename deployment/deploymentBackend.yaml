@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-connector-backend
+  labels:
+    app: api-connector-backend
+  namespace: api-connector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-connector-backend
+  template:
+    metadata:
+      labels:
+        app: api-connector-backend
+    spec:
+      containers:
+        - name: api-connector-backend
+          image: "<hier eine Referenz auf die verwendete docker registry mit dem dockerimage tag vom backend und version>"
+          env:
+          - name: DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: auth-db-settings
+                key: db_host
+          - name: DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: auth-db-settings
+                key: db_name
+          - name: DB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: auth-db-settings
+                key: db_user
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: auth-db-settings
+                key: db_password
+          - name: DB_SSLMODE
+            valueFrom:
+              secretKeyRef:
+                name: auth-db-settings
+                key: db_sslmode
+          - name: CORS_ORIGIN_URLS
+            valueFrom:
+              configMapKeyRef:
+                name: api-connector-spa
+                key: CORS_ORIGIN_URLS
+          ports:
+            - name: internalhttp
+              containerPort: 8080
+              protocol: TCP
+      imagePullSecrets:
+      - name: <hier der secret name zum Authentifizieren mit der docker-Registry>

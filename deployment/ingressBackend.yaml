@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-connector-frontend
+  namespace: api-connector
+  labels:
+    app: api-connector-backend
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - <url des backends>
+  rules:
+    - host: <url des backends>
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: api-connector-backend
+                port:
+                  number: 80

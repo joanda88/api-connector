@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-connector-frontend
+  labels:
+    app: api-connector-frontend
+  namespace: api-connector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-connector-frontend
+  template:
+    metadata:
+      labels:
+        app: api-connector-frontend
+    spec:
+      containers:
+        - name: api-connector-frontend
+          image: "<hier eine Referenz auf die verwendete docker registry mit dem dockerimage tag vom frontend und version>"
+          ports:
+            - containerPort: 4200
+              name: http
+      imagePullSecrets:
+      - name: <hier der secret name zum Authentifizieren mit der docker-Registry>
