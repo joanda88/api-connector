@@ -4,13 +4,12 @@ metadata:
   name: api-connector-frontend
   labels:
     app: api-connector-frontend
-
 spec:
   type: ClusterIP
   ports:
     - name: http
       port: 80
-      targetPort: 4200
+      targetPort: 80
       protocol: TCP
   selector:
     app: api-connector-frontend

@@ -19,7 +19,7 @@ spec:
         - name: api-connector-frontend
           image: "<hier eine Referenz auf die verwendete docker registry mit dem dockerimage tag vom frontend und version>"
           ports:
-            - containerPort: 4200
+            - containerPort: 80
               name: http
       imagePullSecrets:
       - name: <hier der secret name zum Authentifizieren mit der docker-Registry>
