@@ -6,4 +6,4 @@ metadata:
   labels:
     app: api-connector-spa
 data:
-  CORS_ORIGIN_URLS: <hier die URL unter des das Frontend im Web erreichbar ist eintragen>
+  CORS_ORIGIN_URLS: <hier die URL unter der das Frontend im Web erreichbar ist eintragen>
