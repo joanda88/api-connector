@@ -4,7 +4,7 @@
 
 Erforderliche Tools:
 
-- Java 8
+- Java >=8 (getestet wurde mit 8)
 - Maven
 - Docker
 - Docker-Compose
@@ -78,7 +78,7 @@ Man kann die Unit-Tests mit folgenden Befehl starten:
 
     npm run test
 
-End-2-End Tests mit laufenden Backend kann man über diesen Befehl starten:
+End-2-End Tests mit laufenden Frontend und Backend kann man über diesen Befehl starten:
 
     npm run e2e
 
