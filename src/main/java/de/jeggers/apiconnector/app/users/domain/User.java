@@ -10,10 +10,9 @@ import javax.persistence.Table;
 
 @Getter
 @Setter
-@ToString
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@AllArgsConstructor
 @Table(name="user", schema = "api_connector")
 public class User {
     @Id
