@@ -1,5 +1,6 @@
 package de.jeggers.apiconnector.app.users.web;
 
+import de.jeggers.apiconnector.app.users.domain.FetchWeatherService;
 import de.jeggers.apiconnector.app.users.domain.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,9 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private FetchWeatherService fetchWeatherService;
+
     @Transactional(readOnly = true)
     @GetMapping("/users")
     public ResponseEntity<CountriesDTO> users() {
@@ -33,4 +37,10 @@ public class UserController {
         countriesWithUserDTOs.forEach((country, userDTOS) -> countriesWithUsers.add(new CountryDTO(userDTOS, country)));
         return ResponseEntity.ok(new CountriesDTO(countriesWithUsers));
     }
+
+    @GetMapping("/weather")
+    public ResponseEntity<String> weather(@RequestParam String longitude, @RequestParam String latitude) {
+        return ResponseEntity.ok(fetchWeatherService.getWeather(longitude, latitude).get());
+    }
+
 }

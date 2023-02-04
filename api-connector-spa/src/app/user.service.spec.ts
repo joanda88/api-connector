@@ -23,7 +23,11 @@ describe('UserService', () => {
 
     const countriesWithUserData: CountriesDTO = {
       countries: [
-        {name: "Sweden", users: [{gender: "female", name: "Anne", country: "Belgium", email: "a@b.com"}]}
+        {name: "Sweden",
+          users: [
+            {gender: "female", name: "Anne", country: "Belgium", email: "a@b.com", longitude: "12.3", latitude: "2.3"}
+          ]
+        }
       ]
     };
 

@@ -8,12 +8,16 @@ export class UserDTO {
   name: string;
   email: string;
   country: string;
+  latitude: string;
+  longitude: string;
 
-  constructor(gender: string, name: string, email: string, country: string) {
+  constructor(gender: string, name: string, email: string, country: string, latitude: string, longitude: string) {
     this.country = country;
     this.email = email;
     this.name = name;
     this.gender = gender;
+    this.latitude = latitude;
+    this.longitude = longitude;
   }
 }
 

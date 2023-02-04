@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {CountryDTO, UserDTO, UserService} from "./user.service";
+import {WeatherService} from "./weather.service";
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ export class AppComponent {
   private NOCOUNTRYSELECTED: String = "Select Country";
   selectedCountry: String = this.NOCOUNTRYSELECTED;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private weatherService: WeatherService) {
+  }
 
   ngOnInit(): void {
     this.update();
@@ -20,7 +22,7 @@ export class AppComponent {
 
   update(): void {
     this.userService.getUsers().subscribe(countries => {
-      if(countries !== null) {
+      if (countries !== null) {
         this.countryWithUsersList = countries.countries;
         this.extractCountries();
         this.resetSelect();
@@ -43,12 +45,24 @@ export class AppComponent {
   }
 
   getUserList(): UserDTO[] {
-   if(this.selectedCountry == this.NOCOUNTRYSELECTED) {
-     return this.countryWithUsersList
-       .flatMap(countryWithUser => countryWithUser.users)
-   }
-   return this.countryWithUsersList
-     .filter(countryWithUser => countryWithUser.name == this.selectedCountry)
-     .flatMap(countryWithUser => countryWithUser.users);
+    if (this.selectedCountry == this.NOCOUNTRYSELECTED) {
+      return this.countryWithUsersList
+        .flatMap(countryWithUser => countryWithUser.users)
+    }
+    return this.countryWithUsersList
+      .filter(countryWithUser => countryWithUser.name == this.selectedCountry)
+      .flatMap(countryWithUser => countryWithUser.users);
+  }
+
+  getWeather(user: UserDTO) {
+    console.log(user);
+    this.weatherService.getWeather(user.longitude, user.latitude).subscribe((temp) => {
+        if (temp !== null) {
+          window.alert("Current temperature for user " + user.name + " is " + temp + "°C")
+        } else {
+          window.alert("Error fetching weather data!")
+        }
+      }
+    );
   }
 }

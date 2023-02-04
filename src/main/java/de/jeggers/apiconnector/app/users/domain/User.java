@@ -24,5 +24,7 @@ public class User {
     private String email;
     private String country;
     private String gender;
+    private String latitude;
+    private String longitude;
 
 }

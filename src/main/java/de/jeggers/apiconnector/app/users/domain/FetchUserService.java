@@ -56,6 +56,8 @@ public class FetchUserService {
                  user.setCountry(userJsonNode.get("location").get("country").asText());
                  user.setEmail(userJsonNode.get("email").asText());
                  user.setId(UUID.fromString(userJsonNode.get("login").get("uuid").asText()));
+                 user.setLatitude(userJsonNode.get("location").get("coordinates").get("latitude").asText());
+                 user.setLongitude(userJsonNode.get("location").get("coordinates").get("longitude").asText());
                  userList.add(user);
             });
 

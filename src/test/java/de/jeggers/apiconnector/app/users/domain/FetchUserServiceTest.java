@@ -31,6 +31,8 @@ public class FetchUserServiceTest {
         assertThat(users.get(0).getGender()).isEqualTo("female");
         assertThat(users.get(0).getEmail()).isEqualTo("harriet.loth@example.com");
         assertThat(users.get(0).getCountry()).isEqualTo("Germany");
+        assertThat(users.get(0).getLatitude()).isEqualTo("-50.1137");
+        assertThat(users.get(0).getLongitude()).isEqualTo("148.3099");
     }
 
     @Test

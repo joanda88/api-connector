@@ -50,7 +50,9 @@ public class UserRepositoryIT {
                 "testUser",
                 "testUser@test.de",
                 "Austria",
-                "female"
+                "female",
+                "12.23",
+                "3.0"
         )), false);
 
         Optional<User> optionalUser = repo.findById(neuerUserId);
@@ -70,7 +72,9 @@ public class UserRepositoryIT {
                 "testUser",
                 "testUser@test.de",
                 "Austria",
-                "female"
+                "female",
+                "12.2",
+                "2.3"
         )), true);
 
         Optional<User> optionalUserNew = repo.findById(neuerUserId);
@@ -88,7 +92,9 @@ public class UserRepositoryIT {
                 "testUser",
                 "testUser@test.de",
                 "Austria",
-                "female"
+                "female",
+                "12.3",
+                "2.3"
         )), false);
 
         Optional<User> optionalUserNew = repo.findById(neuerUserId);
